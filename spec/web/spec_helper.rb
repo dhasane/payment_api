@@ -11,15 +11,15 @@ Gem.suffix_pattern
 
 require_relative '../minitest_helper'
 
-App.plugin :not_found do
+PaymentAPI.plugin :not_found do
   raise "404 - File Not Found"
 end
-App.plugin :error_handler do |e|
+PaymentAPI.plugin :error_handler do |e|
   raise e
 end
 
-App.freeze if ENV['NO_AUTOLOAD']
-Capybara.app = App.app
+PaymentAPI.freeze if ENV['NO_AUTOLOAD']
+Capybara.app = PaymentAPI.app
 Capybara.exact = true
 
 class Minitest::HooksSpec

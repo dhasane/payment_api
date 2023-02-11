@@ -3,7 +3,7 @@ require_relative 'models'
 require 'roda'
 require 'tilt/sass'
 
-class App < Roda
+class PaymentAPI < Roda
   opts[:check_dynamic_arity] = false
   opts[:check_arity] = :warn
 
@@ -77,9 +77,9 @@ class App < Roda
   end
 
   plugin :sessions,
-    key: '_App.session',
+    key: '_PaymentAPI.session',
     #cookie_options: {secure: ENV['RACK_ENV'] != 'test'}, # Uncomment if only allowing https:// access
-    secret: ENV.send((ENV['RACK_ENV'] == 'development' ? :[] : :delete), 'APP_SESSION_SECRET')
+    secret: ENV.send((ENV['RACK_ENV'] == 'development' ? :[] : :delete), 'PAYMENT_API_SESSION_SECRET')
 
   if Unreloader.autoload?
     plugin :autoload_hash_branches

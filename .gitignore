@@ -1,3 +1,2 @@
-/.env.rb
-/test-stack
+/.secrets.rb
 /coverage
