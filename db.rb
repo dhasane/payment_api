@@ -40,14 +40,23 @@ end
 
 DB.create_table? :rides do
   primary_key :id
-  foreign_key :rider_id, :rider
-  foreign_key :driver_id, :driver
+  Integer :rider_id, null: false
+  Integer :driver_id, null: false
   DateTime :start_time
+
+  float :latitude, null: false
+  float :longitude, null: false
+
+  foreign_key [:rider_id], :riders, name: 'fk_ride_to_rider'
+  foreign_key [:driver_id], :drivers, name: 'fk_ride_to_driver'
 end
 
 DB.create_table? :rides_end do
-  primary_key :id
-  foreign_key :ride_id, :ride
+  Integer :ride_id, unique: true, null: false
   DateTime :end_time
-  float :distance
+
+  float :latitude, null: false
+  float :longitude, null: false
+
+  foreign_key [:ride_id], :rides, name: 'fk_ride_end_to_ride'
 end
