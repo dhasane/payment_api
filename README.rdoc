@@ -1,27 +1,12 @@
 using https://github.com/jeremyevans/roda-sequel-stack as base
 
-= roda-sequel-stack
-
-This is an application skeleton for an app using Roda as the web framework,
-and Sequel as the database library.  It's set up so you can clone this
-repository and base your application on it:
-
-  git clone https://github.com/jeremyevans/roda-sequel-stack.git my_app
-  cd my_app
-  rake "setup[MyApp]"
-
 == Database Setup
 
-By default roda-sequel-stack assumes a PostgreSQL database, with an application
-specific PostgreSQL database account.  You can create this via:
+Using a PostgreSQL database.
 
-  CREATE USER payment_api;
-  CREATE DATABASE payment_api_production OWNER payment_api;
-  CREATE DATABASE payment_api_test OWNER payment_api;
-  CREATE DATABASE payment_api_development OWNER payment_api;
-
-Using an application specific, regular database user account (not a
-database superuser account), is recommended for security reasons.
+  CREATE DATABASE payment_api_production;
+  CREATE DATABASE payment_api_test;
+  CREATE DATABASE payment_api_development;
 
 == Next Steps
 

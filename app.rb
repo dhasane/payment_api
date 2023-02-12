@@ -2,6 +2,7 @@ require_relative 'models'
 
 require 'roda'
 require 'tilt/sass'
+require 'json'
 
 class PaymentAPI < Roda
   opts[:check_dynamic_arity] = false
