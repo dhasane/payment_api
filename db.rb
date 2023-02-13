@@ -60,3 +60,10 @@ DB.create_table? :rides_end do
 
   foreign_key [:ride_id], :rides, name: 'fk_ride_end_to_ride'
 end
+
+DB.create_table? :payments do
+  primary_key :id
+
+  String :reference, null: false
+  Integer :transaction_id, null: false
+end

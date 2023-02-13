@@ -12,17 +12,6 @@ class RideController
     )
   end
 
-  # nil if not on ride, ride_id if on drive
-  def find_ongoing_ride_driver(driver_id)
-    od = Driver.on_drive(driver_id).first
-    od.nil? ? nil : od.id
-  end
-
-  def find_ongoing_ride_driver(driver_id)
-    od = Driver.on_drive(driver_id).first
-    od.nil? ? nil : od.id
-  end
-
   def end_ride(ride_id, latitude, longitude)
     RideEnd.insert(
       ride_id: ride_id,
@@ -33,8 +22,8 @@ class RideController
   end
 
   def calculate_fee(ride_id)
-    r_start = Ride.where(id: ride_id)
-    r_end = RideEnd.where(id: ride_id)
+    r_start = Ride.where(id: ride_id).first
+    r_end = RideEnd.where(id: ride_id).first
 
     time = (r_end.end_time - r_start.start_time).minutes
 

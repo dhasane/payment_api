@@ -1,3 +1,5 @@
+require_relative '../controllers/driver_controller'
+
 class PaymentAPI
   hash_branch('driver') do |r|
     # /prefix1 branch handling
