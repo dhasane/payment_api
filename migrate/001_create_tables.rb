@@ -7,12 +7,19 @@ class CreateTables < Sequel::Migration
 
     create_table :riders do
       primary_key :id
+      Integer :user_id, null: false
+
+      foreign_key [:user_id], :users, name: 'fk_rider_to_user'
     end
 
     create_table :drivers do
       primary_key :id, unique: true
+      Integer :user_id, null: false
+
       float :latitude
       float :longitude
+
+      foreign_key [:user_id], :users, name: 'fk_driver_to_user'
     end
 
     create_table :rides do

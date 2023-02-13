@@ -15,6 +15,6 @@ class Driver < Sequel::Model(:drivers)
        from #{:drivers} dr
        where dr.id = #{driver_id}" +
       (urs.empty? ? '' : " and dr.id not in ( #{urs} )")
-    )
+    ).first
   end
 end

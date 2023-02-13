@@ -77,27 +77,44 @@ end
 
 # Specs
 
-spec = proc do |type|
-  desc "Run #{type} specs"
-  task :"#{type}_spec" do
-    sh "#{FileUtils::RUBY} -w spec/#{type}.rb"
-  end
+# spec = proc do |type|
+#   desc "Run #{type} specs"
+#   task :"#{type}_spec" do
+#     sh "#{FileUtils::RUBY} -w spec/#{type}.rb"
+#   end
+#
+#   desc "Run #{type} specs with coverage"
+#   task :"#{type}_spec_cov" do
+#     ENV['COVERAGE'] = type
+#     sh "#{FileUtils::RUBY} spec/#{type}.rb"
+#     ENV.delete('COVERAGE')
+#   end
+# end
+# spec.call('model')
+# spec.call('web')
+#
+# desc 'Run all specs'
+# task default: [:model_spec, :web_spec]
+#
+# desc "Run all specs with coverage"
+# task spec_cov: [:model_spec_cov, :web_spec_cov]
 
-  desc "Run #{type} specs with coverage"
-  task :"#{type}_spec_cov" do
-    ENV['COVERAGE'] = type
-    sh "#{FileUtils::RUBY} spec/#{type}.rb"
-    ENV.delete('COVERAGE')
-  end
+require 'minitest/test_task'
+
+minitest = lambda do |type|
+  Minitest::TestTask.create # named test, sensible defaults
+
+
 end
-spec.call('model')
-spec.call('web')
 
-desc "Run all specs"
-task default: [:model_spec, :web_spec]
+Minitest::TestTask.create(:test) do |t|
+  t.libs << 'test'
+  t.libs << 'lib'
+  t.warning = false
+  t.test_globs = ['tests/**/*_test.rb']
+end
 
-desc "Run all specs with coverage"
-task spec_cov: [:model_spec_cov, :web_spec_cov]
+task default: :test
 
 # Other
 
