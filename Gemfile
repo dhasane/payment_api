@@ -25,3 +25,5 @@ group :test do
   gem 'minitest-hooks', '>= 1.1.0'
   gem 'sqlite3', '~> 1.6'
 end
+
+gem "rackup", "~> 2.1"

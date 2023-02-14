@@ -4,6 +4,12 @@ volumes:
   ppvolume:
 
 services:
+  payment_api:
+    build:
+      dockerfile: Dockerfile
+    links:
+      - postgres
+    command: bundle install && bundle exec rackup
   postgres:
     container_name: pppostgres
     image: postgres

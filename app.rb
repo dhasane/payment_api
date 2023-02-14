@@ -1,5 +1,3 @@
-require_relative 'models'
-
 require 'roda'
 require 'tilt/sass'
 require 'json'
@@ -80,7 +78,7 @@ class PaymentAPI < Roda
 
   plugin :sessions,
          key: '_PaymentAPI.session',
-         # cookie_options: {secure: ENV['RACK_ENV'] != 'test'}, # Uncomment if only allowing https:// access
+         cookie_options: { secure: ENV['RACK_ENV'] != 'test' }, # Uncomment if only allowing https:// access
          secret: ENV.send((ENV['RACK_ENV'] == 'development' ? :[] : :delete), 'PAYMENT_API_SESSION_SECRET')
 
   if Unreloader.autoload?
