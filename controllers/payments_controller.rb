@@ -23,7 +23,7 @@ class PaymentsController
     # this should be moved to secrets
     uri = ENV['PAYMENT_URL'] + endpoint
     puts uri
-    req = HTTP.auth(ENV['PUBLIC_KEY'])
+    req = HTTP.auth("Bearer #{ENV['PUBLIC_KEY']}")
               .get(uri)
     JSON.parse(req)
   end
@@ -40,12 +40,12 @@ class PaymentsController
   def self.create_transaction(user_id, token, amount, accept_habeas_data)
     return unless accept_habeas_data
 
-    reference = "payments-api-#{Payment.count + 1}"
+    reference = "payments-api-#{user_id}-#{Time.now.strftime('%d-%m-%Y-%H-%M-%S')}"
     body = {
       amount_in_cents: amount,
       currency: 'COP',
       reference: reference,
-      customer_email: "example@wompi.co",
+      customer_email: 'example@gmail.co',
       acceptance_token: acceptance_token,
       payment_method: {
         type: 'CARD',
@@ -53,12 +53,21 @@ class PaymentsController
         token: token
       }
     }
-    # TODO: add a relation between the paying user and the transaction
     # TODO: i still dont understand how this describes the end user for whom the money will go to
-    tr_id = post('/transactions', body)['data']['id']
-    Payment.insert(reference: reference, transaction_id: tr_id)
+    tr_id = post('/transactions', body)
+
+    unless tr_id.key?('error')
+      Payment.insert(
+        reference: reference,
+        transaction_id: tr_id['data']['id'],
+        user_id: user_id
+      )
+    end
   end
 
-  def self.check_transaction()
+  def self.check_transaction(transaction_id)
+    payment = Payment.where(id: transaction_id).first
+    puts payment
+    get("/transactions/#{payment.transaction_id}")['data']['status']
   end
 end

@@ -49,7 +49,7 @@ class CreateTables < Sequel::Migration
       primary_key :id
 
       String :reference, null: false
-      Integer :transaction_id, null: false
+      String :transaction_id, null: false
       Integer :user_id, null: false
 
       foreign_key [:user_id], :users, name: 'fk_payment_to_user'
