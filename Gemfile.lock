@@ -53,6 +53,9 @@ GEM
     rack-test (2.0.2)
       rack (>= 1.3)
     rack-unreloader (2.1.0)
+    rackup (2.1.0)
+      rack (>= 3)
+      webrick (~> 1.8)
     rake (13.0.6)
     refrigerator (1.5.1)
     regexp_parser (2.7.0)
@@ -77,6 +80,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
+    webrick (1.8.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -93,6 +97,7 @@ DEPENDENCIES
   minitest-global_expectations
   minitest-hooks (>= 1.1.0)
   rack-unreloader (>= 2.1)
+  rackup (~> 2.1)
   rake
   refrigerator (>= 1)
   roda (>= 3.63)

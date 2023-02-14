@@ -4,15 +4,9 @@ volumes:
   ppvolume:
 
 services:
-  payment_api:
-    build:
-      dockerfile: Dockerfile
-    links:
-      - postgres
-    command: bundle install && bundle exec rackup
   postgres:
-    container_name: pppostgres
     image: postgres
+    container_name: pppostgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -22,3 +16,19 @@ services:
       - "5432:5432"
     volumes:
       - ppvolume:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s 
+  payment_api:
+    build: .
+    # links:
+    #   - postgres
+    command: bundle exec rackup
+    ports:
+      - "9292:9292"
+    depends_on:
+      postgres:
+        condition: service_healthy
