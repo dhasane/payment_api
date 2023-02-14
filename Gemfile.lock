@@ -12,6 +12,10 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    database_cleaner-core (2.0.1)
+    database_cleaner-sequel (2.0.2)
+      database_cleaner-core (~> 2.0.0)
+      sequel
     docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -34,6 +38,8 @@ GEM
     matrix (0.4.2)
     mini_mime (1.1.2)
     minitest (5.17.0)
+    minitest-around (0.5.0)
+      minitest (~> 5.0)
     minitest-global_expectations (1.0.1)
       minitest (> 5)
     minitest-hooks (1.5.0)
@@ -66,6 +72,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    sqlite3 (1.6.0-x86_64-linux)
     tilt (2.0.11)
     unf (0.1.4)
       unf_ext
@@ -78,9 +85,11 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  database_cleaner-sequel
   erubi (>= 1.5)
   http (~> 5.1)
   minitest (>= 5.7.0)
+  minitest-around
   minitest-global_expectations
   minitest-hooks (>= 1.1.0)
   rack-unreloader (>= 2.1)
@@ -92,6 +101,7 @@ DEPENDENCIES
   sequel-annotate
   sequel_pg (>= 1.8)
   simplecov
+  sqlite3 (~> 1.6)
   tilt (>= 2.0.9)
 
 BUNDLED WITH

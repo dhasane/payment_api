@@ -6,16 +6,17 @@ end
 
 require 'sequel/core'
 
-# Delete PAYMENT_API_DATABASE_URL from the environment, so it isn't accidently
-# passed to subprocesses.  PAYMENT_API_DATABASE_URL may contain passwords.
-# DB = Sequel.connect(ENV.delete('PAYMENT_API_DATABASE_URL') || ENV.delete('DATABASE_URL'))
-DB = Sequel.connect(
-  adapter: 'postgres',
-  host: 'localhost',
-  database: ENV['PAYMENT_API_DATABASE'],
-  user: 'postgres',
-  password: 'Password'
-)
+DB = if ENV['RACK_ENV'] == 'test'
+       Sequel.sqlite
+     else
+       Sequel.connect(
+         adapter: 'postgres',
+         host: 'localhost',
+         database: ENV['PAYMENT_API_DATABASE'],
+         user: 'postgres',
+         password: 'Password'
+       )
+     end
 
 # Load Sequel Database/Global extensions here
 # DB.extension :date_arithmetic
