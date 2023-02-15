@@ -1,3 +1,4 @@
+require 'matrix'
 require_relative '../models/ride'
 require_relative '../models/ride_end'
 
@@ -21,13 +22,23 @@ class RideController
     )
   end
 
+  def self.ride_ended(ride_id)
+    !RideEnd.where(ride_id: ride_id).first.nil?
+  end
+
   def self.calculate_fee(ride_id)
     r_start = Ride.where(id: ride_id).first
-    r_end = RideEnd.where(id: ride_id).first
+    r_end = RideEnd.where(ride_id: ride_id).first
 
-    time = (r_end.end_time - r_start.start_time).minutes
+    # time in minutes
+    time = Integer((r_end.end_time - r_start.start_time) / 60)
 
-    distance = r_end.distance
+    # calculated as if flat coordinates
+    puts "#{r_start.latitude}  #{r_start.longitude}"
+    puts "#{r_end.latitude}    #{r_end.longitude}"
+
+    distance = (Vector[r_start.latitude, r_start.longitude] - Vector[r_end.latitude, r_end.longitude]).magnitude
+    puts distance
 
     # 1000 each km
     # 200 each minute

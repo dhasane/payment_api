@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'erubi', '>= 1.5'
 gem 'http', '~> 5.1'
 gem 'rack-unreloader', '>= 2.1'
+gem 'rackup', '~> 2.1'
 gem 'rake'
 gem 'refrigerator', '>= 1'
 gem 'roda', '>= 3.63'
@@ -24,6 +25,5 @@ group :test do
   gem 'minitest-global_expectations'
   gem 'minitest-hooks', '>= 1.1.0'
   gem 'sqlite3', '~> 1.6'
+  gem 'timecop', '~> 0.9.6'
 end
-
-gem "rackup", "~> 2.1"
