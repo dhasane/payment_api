@@ -1,13 +1,13 @@
 require 'minitest/autorun'
-require_relative './db_helper'
+require_relative '../db_helper'
 
 class DriverDBTest < Minitest::Spec
-  def test_driver_empty
-    assert_equal 0, Driver.count
-  end
+  def test_free_drivers
+    baseline = Driver.free_drivers.count
+    assert_equal baseline, Driver.free_drivers.count
 
-  def test_no_drivers_free
-    assert_equal 0, Driver.free_drivers.count
+    user_id = User.insert
+    Driver.insert(user_id: user_id)
   end
 
   def test_insert_driver_no_user
@@ -17,22 +17,26 @@ class DriverDBTest < Minitest::Spec
   end
 
   def test_insert_driver
+    baseline = Driver.count
+
     user_id = User.insert
     Driver.insert(user_id: user_id)
-    assert_equal 1, Driver.count
+    assert_equal baseline + 1, Driver.count
   end
 
   def test_insert_multiple_drivers
-    user_id = User.insert
-    Driver.insert(user_id: user_id)
-    assert_equal 1, Driver.count
+    baseline = Driver.count
 
     user_id = User.insert
     Driver.insert(user_id: user_id)
-    assert_equal 2, Driver.count
+    assert_equal baseline + 1, Driver.count
 
     user_id = User.insert
     Driver.insert(user_id: user_id)
-    assert_equal 3, Driver.count
+    assert_equal baseline + 2, Driver.count
+
+    user_id = User.insert
+    Driver.insert(user_id: user_id)
+    assert_equal baseline + 3, Driver.count
   end
 end
