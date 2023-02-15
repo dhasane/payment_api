@@ -4,7 +4,6 @@ require_relative '../db_helper'
 require_relative '../../controllers/ride_controller'
 
 class RideControllerTest < Minitest::Test
-
   def setup
     # @ = Driver.new
     user_id = User.insert
