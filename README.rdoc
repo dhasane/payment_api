@@ -27,7 +27,18 @@ Run in the command line
 
 == Database Setup
 
-Using a PostgreSQL database.
+If you want to run the database with docker
+
+  docker compose up
+
+then to connect 
+
+   docker exec -it pp_postgres psql -U postgres
+
+note: I had a problem connecting the container to the postgres container.
+Because of this, the definition for the application is commented for now.
+
+Create the databases 
 
   CREATE DATABASE payment_api_production;
   CREATE DATABASE payment_api_test;
