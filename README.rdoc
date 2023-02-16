@@ -64,6 +64,17 @@ to run an irb session
   rake test_irb # IRB shell with models connected to the test database
   rake prod_irb # IRB shell with models connected to the production database
 
+
+== Diagrams
+
+=== model diagram
+
+rdoc-image:diagrams/img/model.png
+
+=== database
+
+rdoc-image:diagrams/img/db.png
+
 == Main Libraries Used
 
 roda :: web framework
