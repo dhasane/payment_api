@@ -33,7 +33,7 @@ class PaymentsGateway
       }
     }
     # TODO: i still dont understand how this describes the end user for whom the money will go to
-    HttpUtil.post("#{ENV['PAYMENT_URL']} /transactions", ENV['PUBLIC_KEY'], body)
+    HttpUtil.post("#{ENV['PAYMENT_URL']}/transactions", ENV['PUBLIC_KEY'], body)
   end
 
   def self.check_transaction(transaction_id)
