@@ -18,6 +18,12 @@ DB = if ENV['RACK_ENV'] == 'test'
        )
      end
 
+if ENV['RACK_ENV'] == 'test'
+  puts 'test migration'
+  Sequel.extension :migration
+  Sequel::Migrator.apply(DB, 'migrate')
+end
+
 # Load Sequel Database/Global extensions here
 # DB.extension :date_arithmetic
 DB.extension :pg_auto_parameterize if DB.adapter_scheme == :postgres && Sequel::Postgres::USES_PG

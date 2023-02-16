@@ -1,8 +1,8 @@
 class CreateTables < Sequel::Migration
   def up
+    # this would have all common user info
     create_table :users do
       primary_key :id
-      String :tkCC
     end
 
     create_table :riders do
