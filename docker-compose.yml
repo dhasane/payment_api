@@ -26,6 +26,25 @@ services:
       start_period: 80s 
   # payment_api:
   #   container_name: pp_api
+  #   image: ruby:alpine3.17
+  #   command: sh -c "apk add --update --upgrade build-base postgresql-dev &&\
+  #                   gem install bundler && \
+  #                   bundler install &&\
+  #                   bundler exec rackup"
+  #   ports:
+  #     - 9292:9292
+  #   working_dir: /app
+  #   volumes:
+  #     - ./:/app
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: Password 
+  #     POSTGRES_DB: postgres
+  # payment_api:
+  #   container_name: pp_api
   #   build: .
   #   command: bundle exec rackup
   #   ports:
