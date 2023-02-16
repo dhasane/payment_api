@@ -1,3 +1,8 @@
+begin
+  require_relative '.secrets'
+rescue LoadError
+end
+
 case ENV['RACK_ENV'] ||= 'development'
 when 'test'
   ENV['PAYMENT_API_DATABASE'] ||= 'payment_api_test'

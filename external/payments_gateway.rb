@@ -1,12 +1,21 @@
-require_relative '../.env'
+require_relative '../env'
 require_relative './http_utils'
-begin
-  require_relative '../.secrets'
-rescue LoadError
-end
 
 class PaymentsGateway
   @acceptance_token = nil
+
+  # meant for testing
+  def self.tk_card
+    HttpUtil.post("#{ENV['PAYMENT_URL']}/tokens/cards",
+                  ENV['PUBLIC_KEY'],
+                  { # test values
+                    number: "4242424242424242", # // Número de la tarjeta
+                    cvc: "123", # // Código de seguridad de la tarjeta (3 o 4 dígitos según corresponda)
+                    exp_month: "08", # // Mes de expiración (string de 2 dígitos)
+                    exp_year: "28", # // Año expresado en 2 dígitos
+                    card_holder: "José Pérez" # // Nombre del tarjetahabiente
+                  })
+  end
 
   def self.acceptance_token
     if @acceptance_token.nil?

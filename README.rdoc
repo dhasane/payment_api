@@ -2,6 +2,23 @@ using https://github.com/jeremyevans/roda-sequel-stack as base
 
 = Steps
 
+== secrets
+
+create a .secrets.rb file in the root of the project and add something like this 
+
+   case ENV['RACK_ENV'] ||= 'development'
+   when 'test'
+     ENV['PAYMENT_API_SESSION_SECRET'] ||= "...".unpack('m')[0]
+   when 'production'
+     ENV['PAYMENT_API_SESSION_SECRET'] ||= "...".unpack('m')[0]
+   else
+     ENV['PAYMENT_API_SESSION_SECRET'] ||= "...".unpack('m')[0]
+   end
+   
+   ENV['PUBLIC_KEY'] ||= '...'
+   
+   ENV['PAYMENT_URL'] ||= '...'
+
 == Install dependencies
 
 Run in the command line
@@ -35,17 +52,6 @@ to run an irb session
   rake dev_irb  # IRB shell with models connected to the development database
   rake test_irb # IRB shell with models connected to the test database
   rake prod_irb # IRB shell with models connected to the production database
-
-== Next Steps
-
-After editing the model files, you'll probably want to edit the
-application file (+app.rb+).  You'll also want to rename and edit the example
-routing subtree (+routes/prefix1.rb+).  After that, you'll probably want to
-edit the layout (+views/layout.erb+) and index page (+views/index.erb+), as
-well as add any other views.
-
-After making those changes, you can start your application using +rackup+
-or similar program.
 
 == Main Libraries Used
 
@@ -95,8 +101,6 @@ subclasses :: Freeze model classes in production and during testing
 
 == Environment Variables Used
 
-#{APP}_DATABASE_URL :: database connection URL to give to Sequel, default is to
-                       create one based on the application's name and RACK_ENV.
 #{APP}_SESSION_SECRET :: cookie session secret, must be >=64 bytes
 RACK_ENV :: environment to use (production, development, or test), defaults
             to development.

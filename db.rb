@@ -1,8 +1,4 @@
-require_relative '.env'
-begin
-  require_relative '.secrets'
-rescue LoadError
-end
+require_relative 'env'
 
 require 'sequel/core'
 

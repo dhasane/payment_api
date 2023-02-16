@@ -40,7 +40,7 @@ class RideControllerTest < Minitest::Test
 
     fee = RideController.calculate_fee(ride_id)
 
-    expected_fee = 100 * 1000 + minutes * 200 + 3500
+    expected_fee = (100 * 1000 + minutes * 200 + 3500) * 1000
 
     assert_equal expected_fee, fee
   end
