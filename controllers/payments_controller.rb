@@ -1,24 +1,24 @@
-require 'http'
-require_relative '../.env'
 require_relative '../external/payments_gateway'
-# require_relative '../models/payments'
-begin
-  require_relative '../.secrets'
-rescue LoadError
-end
+require_relative './rider_controller'
 
 class PaymentsController
-  def self.create_transaction(user_id, token, amount, accept_habeas_data)
+  def self.create_transaction(rider_id, token, ride_id, accept_habeas_data)
     return unless accept_habeas_data
 
-    reference = "payments-api-#{user_id}-#{Time.now.strftime('%d-%m-%Y-%H-%M-%S')}"
-    transaction = PaymentsGateway.create_transaction(reference, token, amount, accept_habeas_data)
+    user_id = RiderController.get_user_id(rider_id)
+    fee = RideController.calculate_fee(ride_id)
 
+    puts "fee #{fee}"
+    reference = "payments-api-#{user_id}-#{Time.now.strftime('%d-%m-%Y-%H-%M-%S')}"
+    transaction = PaymentsGateway.create_transaction(reference, token, fee, accept_habeas_data)
+
+    puts transaction
     unless transaction.key?('error')
       Payment.insert(
         reference: reference,
         transaction_id: transaction['data']['id'],
-        user_id: user_id
+        user_id: user_id,
+        ride_id: ride_id
       )
     end
   end

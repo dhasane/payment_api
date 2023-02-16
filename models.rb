@@ -22,3 +22,13 @@ if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'test'
   LOGGER.level = Logger::FATAL if ENV['RACK_ENV'] == 'test'
   DB.loggers << LOGGER
 end
+
+# less than ideal, these values will be created each time the app runs
+
+user_id = DB[:users].insert
+DB[:riders].insert(user_id: user_id)
+
+(0..50).step do
+  user_id = DB[:users].insert
+  DB[:drivers].insert(user_id: user_id)
+end

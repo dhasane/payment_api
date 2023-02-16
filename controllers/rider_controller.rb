@@ -1,16 +1,17 @@
+require_relative './driver_controller'
+require_relative './ride_controller'
+
 class RiderController
-  def payment(tcard)
-
-  end
-
-  def request_ride(rider_id, latitude, longitude)
+  def self.request_ride(rider_id, latitude, longitude)
     driver = DriverController.find_free_driver
     RideController.start_ride(rider_id, driver.id, latitude, longitude)
   end
 
-  # nil if not on ride, ride_id if on drive
-  def find_ongoing_ride(rider_id)
-    od = Rider.on_drive(rider_id).first
-    od.nil? ? nil : od.id
+  def self.get_user_id(rider_id)
+    rider = Rider.where(id: rider_id).first
+
+    if !rider.nil?
+      User.where(id: rider.user_id).first.id
+    end
   end
 end

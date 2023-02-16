@@ -34,16 +34,13 @@ class RideController
     time = Integer((r_end.end_time - r_start.start_time) / 60)
 
     # calculated as if flat coordinates
-    puts "#{r_start.latitude}  #{r_start.longitude}"
-    puts "#{r_end.latitude}    #{r_end.longitude}"
-
     distance = (Vector[r_start.latitude, r_start.longitude] - Vector[r_end.latitude, r_end.longitude]).magnitude
-    puts distance
 
     # 1000 each km
     # 200 each minute
     # 3500 base fee
-    distance * 1000 + time * 200 + 3500
+    # * 1000 since it's cents
+    Integer((distance * 1000 + time * 200 + 3500) * 1000)
   end
 
   def self.find_ongoing_ride_for_driver(driver_id)
