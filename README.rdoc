@@ -52,6 +52,10 @@ to set up the tables in the database, run
   rake test_up # Migrate the test database up
   rake prod_up # Migrate the production database up
 
+== lauch the service
+
+  bundle exec rackup
+
 == run tests
 
   rake test
